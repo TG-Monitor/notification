@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class FormatterImpl implements Formatter {
 
     @Override
-    public String formatHtml(PatternMatch match) {
+    public String getBody(PatternMatch match) {
         TelegramMessage msg = match.getMessage();
         StringBuilder sb = new StringBuilder();
 
@@ -35,6 +35,11 @@ public class FormatterImpl implements Formatter {
         sb.append("</ul>");
 
         return sb.toString();
+    }
+
+    @Override
+    public String getSubject(PatternMatch match) {
+        return "Pattern match in \"" + match.getMessage().getPeer().getTitle() + "\"";
     }
 
     private String formatReplyTo(TelegramMessage msg) {

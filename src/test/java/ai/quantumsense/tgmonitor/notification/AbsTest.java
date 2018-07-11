@@ -2,6 +2,7 @@ package ai.quantumsense.tgmonitor.notification;
 
 import ai.quantumsense.tgmonitor.backend.pojo.PatternMatch;
 import ai.quantumsense.tgmonitor.backend.pojo.TelegramMessage;
+import ai.quantumsense.tgmonitor.notification.format.FormatterImpl;
 import ai.quantumsense.tgmonitor.notification.send.MailgunSender;
 import org.junit.BeforeClass;
 
@@ -10,12 +11,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Code common to several test classes.
+ * Code common to multiple test classes.
  */
 public abstract class AbsTest {
 
     public static PatternMatch patternMatch;
     public static Sender sender;
+    public static Formatter formatter = new FormatterImpl();
 
     @BeforeClass
     public static void createPatternMatch() {
