@@ -19,8 +19,8 @@ dependencies {
     compile 'org.apache.httpcomponents:httpmime:4.3.6'
 }
 
-test {
-    exclude 'ai/quantumsense/tgmonitor/notification/**'
+jar {
+    exclude('ai/quantumsense/tgmonitor/test/**')
 }
 
 allprojects {
@@ -28,7 +28,8 @@ allprojects {
         maven { url "https://jitpack.io" }
     }
 }
+
 dependencies {
-    implementation 'com.github.tg-monitor:backend:585edff1adfdd33304ee9237fdefc7cd0f45302a'
+    implementation 'com.github.tg-monitor:backend:master-SNAPSHOT'
 
 }

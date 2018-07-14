@@ -4,7 +4,7 @@ import ai.quantumsense.tgmonitor.backend.pojo.PatternMatch;
 
 public interface Formatter {
     /**
-     * Return HTML email body for a pattern match.
+     * Return body for a pattern match notification email in HTML.
      * @param match
      * @return HTML string
      */
