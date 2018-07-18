@@ -39,7 +39,7 @@ public class FormatterImpl implements Formatter {
 
     @Override
     public String getSubject(PatternMatch match) {
-        return "Pattern match in \"" + match.getMessage().getPeer().getTitle() + "\"";
+        return "Pattern Match in \"" + match.getMessage().getPeer().getTitle() + "\"";
     }
 
     private String formatReplyTo(TelegramMessage msg) {
