@@ -34,6 +34,6 @@ configurations.all {
 }
 
 dependencies {
-    implementation 'com.github.tg-monitor:backend:master-SNAPSHOT'
+    implementation 'com.github.tg-monitor:backend:0.0.1'
 
 }
