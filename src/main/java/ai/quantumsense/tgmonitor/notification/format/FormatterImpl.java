@@ -23,15 +23,15 @@ public class FormatterImpl implements Formatter {
         sb.append("</ul>");
 
         sb.append("<h1>" + formatMsgIdLink(msg.getPeer().getUsername(), msg.getId(), "Message") + "</h1>");
-        sb.append("<p>" + msg.getText() + "</p>");
+        sb.append("<p>" + msg.getText().replace("\n", "<br>") + "</p>");
 
         sb.append("<h1>Message Details</h1>");
         sb.append("<ul>");
-        sb.append("<li>ID: " + msg.getId() + "</li>");
-        sb.append("<li>Chat: " + msg.getPeer().getTitle() + " (" + formatUsernameLink(msg.getPeer().getUsername()) + ")</li>");
-        sb.append("<li>Sender: " + formatSender(msg.getSender()) + "</li>");
-        sb.append("<li>Date: " + formatDate(msg.getDate()) + "</li>");
-        sb.append("<li>Reply To ID: " + formatReplyTo(msg) + "</li>");
+        sb.append("<li><b>ID:</b> " + msg.getId() + "</li>");
+        sb.append("<li><b>Peer:</b> " + msg.getPeer().getTitle() + " (" + formatUsernameLink(msg.getPeer().getUsername()) + ")</li>");
+        sb.append("<li><b>Sender:</b> " + formatSender(msg.getSender()) + "</li>");
+        sb.append("<li><b>Date:</b> " + formatDate(msg.getDate()) + "</li>");
+        sb.append("<li><b>Reply To ID:</b> " + formatReplyTo(msg) + "</li>");
         sb.append("</ul>");
 
         return sb.toString();
@@ -52,11 +52,10 @@ public class FormatterImpl implements Formatter {
     }
 
     private String formatDate(int timestamp) {
-        return String.valueOf(timestamp);
-//        Instant instant = Instant.ofEpochSecond(timestamp);
-//        ZonedDateTime date = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
-//        DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss 'UTC'");
-//        return date.format(format);
+        Instant instant = Instant.ofEpochSecond(timestamp);
+        ZonedDateTime date = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss 'UTC'");
+        return date.format(format);
     }
 
     private String formatSender(TelegramMessage.Sender sender) {
