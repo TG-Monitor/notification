@@ -22,16 +22,16 @@ public class FormatterImpl implements Formatter {
             sb.append("<li>" + p + "</li>");
         sb.append("</ul>");
 
-        sb.append("<h1>" + formatMsgIdLink(msg.getPeer().getUsername(), msg.getId(), "Message") + "</h1>");
+        sb.append("<h1>Message</h1>");
         sb.append("<p>" + msg.getText().replace("\n", "<br>") + "</p>");
 
         sb.append("<h1>Message Details</h1>");
         sb.append("<ul>");
-        sb.append("<li><b>ID:</b> " + msg.getId() + "</li>");
-        sb.append("<li><b>Peer:</b> " + msg.getPeer().getTitle() + " (" + formatUsernameLink(msg.getPeer().getUsername()) + ")</li>");
+        sb.append("<li><b>Link:</b> " + getMsgLink(msg.getPeer().getUsername(), msg.getId()) + "</li>");
+        sb.append("<li><b>Peer:</b> " + msg.getPeer().getTitle() + " (" + getUsernameLink(msg.getPeer().getUsername()) + ")</li>");
         sb.append("<li><b>Sender:</b> " + formatSender(msg.getSender()) + "</li>");
         sb.append("<li><b>Date:</b> " + formatDate(msg.getDate()) + "</li>");
-        sb.append("<li><b>Reply To ID:</b> " + formatReplyTo(msg) + "</li>");
+        sb.append("<li><b>Reply To:</b> " + formatReplyTo(msg) + "</li>");
         sb.append("</ul>");
 
         return sb.toString();
@@ -44,9 +44,7 @@ public class FormatterImpl implements Formatter {
 
     private String formatReplyTo(TelegramMessage msg) {
         if (msg.isReply())
-            return formatMsgIdLink(msg.getPeer().getUsername(),
-                    msg.getReplyMessageId(),
-                    String.valueOf(msg.getReplyMessageId()));
+            return getMsgLink(msg.getPeer().getUsername(), msg.getReplyMessageId());
         else
             return "N/A";
     }
@@ -64,20 +62,24 @@ public class FormatterImpl implements Formatter {
         String un = sender.getUsername();
         if (fn == null && ln == null) {
             if (un == null) return String.valueOf(sender.getId());
-            else return formatUsernameLink(un);
+            else return getUsernameLink(un);
         }
         StringBuilder sb = new StringBuilder();
         sb.append(fn == null ? "" : fn + " ");
         sb.append(ln == null ? "" : ln + " ");
-        sb.append(un == null ? "" : "(" + formatUsernameLink(un) + ")");
+        sb.append(un == null ? "" : "(" + getUsernameLink(un) + ")");
         return sb.toString();
     }
 
-    private String formatMsgIdLink(String username, int msgId, String linkText) {
+    private String getMsgLink(String username, int msgId) {
+        return getMsgLink(username, msgId, "t.me/" + username + "/" + msgId);
+    }
+
+    private String getMsgLink(String username, int msgId, String linkText) {
         return "<a href=\"https://t.me/" + username + "/" + msgId + "\">" + linkText + "</a>";
     }
 
-    private String formatUsernameLink(String username) {
+    private String getUsernameLink(String username) {
         return "<a href=\"https://t.me/" + username + "\">@" + username + "</a>";
     }
 }
