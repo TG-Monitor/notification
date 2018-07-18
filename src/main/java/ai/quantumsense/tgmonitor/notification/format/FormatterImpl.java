@@ -22,16 +22,16 @@ public class FormatterImpl implements Formatter {
             sb.append("<li>" + p + "</li>");
         sb.append("</ul>");
 
-        sb.append("<h1>Message</h1>");
+        sb.append("<h1>" + formatMsgIdLink(msg.getPeer().getUsername(), msg.getId(), "Message") + "</h1>");
         sb.append("<p>" + msg.getText() + "</p>");
 
         sb.append("<h1>Message Details</h1>");
         sb.append("<ul>");
-        sb.append("<li>ID: " + formatMsgIdLink(msg.getPeer().getUsername(), msg.getId()) + "</li>");
+        sb.append("<li>ID: " + msg.getId() + "</li>");
         sb.append("<li>Chat: " + msg.getPeer().getTitle() + " (" + formatUsernameLink(msg.getPeer().getUsername()) + ")</li>");
         sb.append("<li>Sender: " + formatSender(msg.getSender()) + "</li>");
         sb.append("<li>Date: " + formatDate(msg.getDate()) + "</li>");
-        sb.append("<li>Reply To: " + formatReplyTo(msg) + "</li>");
+        sb.append("<li>Reply To ID: " + formatReplyTo(msg) + "</li>");
         sb.append("</ul>");
 
         return sb.toString();
@@ -44,7 +44,9 @@ public class FormatterImpl implements Formatter {
 
     private String formatReplyTo(TelegramMessage msg) {
         if (msg.isReply())
-            return formatMsgIdLink(msg.getPeer().getUsername(), msg.getReplyMessageId());
+            return formatMsgIdLink(msg.getPeer().getUsername(),
+                    msg.getReplyMessageId(),
+                    String.valueOf(msg.getReplyMessageId()));
         else
             return "N/A";
     }
@@ -71,11 +73,11 @@ public class FormatterImpl implements Formatter {
         return sb.toString();
     }
 
-    private String formatMsgIdLink(String username, int msgId) {
-        return "<a href=\"https://t.me/" + username + "/" + msgId + "\">" + username + "/" + msgId + "</a>";
+    private String formatMsgIdLink(String username, int msgId, String linkText) {
+        return "<a href=\"https://t.me/" + username + "/" + msgId + "\">" + linkText + "</a>";
     }
 
     private String formatUsernameLink(String username) {
-        return "<a href=\"https://t.me/" + username + "\">" + username + "</a>";
+        return "<a href=\"https://t.me/" + username + "\">@" + username + "</a>";
     }
 }
