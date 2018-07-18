@@ -52,10 +52,11 @@ public class FormatterImpl implements Formatter {
     }
 
     private String formatDate(int timestamp) {
-        Instant instant = Instant.ofEpochSecond(timestamp);
-        ZonedDateTime date = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss 'UTC'");
-        return date.format(format);
+        return String.valueOf(timestamp);
+//        Instant instant = Instant.ofEpochSecond(timestamp);
+//        ZonedDateTime date = ZonedDateTime.ofInstant(instant, ZoneOffset.UTC);
+//        DateTimeFormatter format = DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss 'UTC'");
+//        return date.format(format);
     }
 
     private String formatSender(TelegramMessage.Sender sender) {
