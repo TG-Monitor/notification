@@ -16,6 +16,8 @@ public class FormatterImpl implements Formatter {
         TelegramMessage msg = match.getMessage();
         StringBuilder sb = new StringBuilder();
 
+        sb.append("<!DOCTYPE html>");
+        sb.append("<html><head></head><body>");
         sb.append("<h1>Matched Patterns</h1>");
         sb.append("<ul>");
         for (String p : match.getPatterns())
@@ -33,7 +35,7 @@ public class FormatterImpl implements Formatter {
         sb.append("<li><b>Date:</b> " + formatDate(msg.getDate()) + "</li>");
         sb.append("<li><b>Reply To:</b> " + formatReplyTo(msg) + "</li>");
         sb.append("</ul>");
-
+        sb.append("</body></html>");
         return sb.toString();
     }
 
