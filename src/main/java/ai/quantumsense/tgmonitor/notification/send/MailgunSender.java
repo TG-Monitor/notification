@@ -11,14 +11,12 @@ public class MailgunSender implements Sender {
     private String mailgunApiKey;
     private String mailgunDomain;
     private String fromEmail;
-    private String fromName;
 
 
-    public MailgunSender(String mailgunApiKey, String mailgunDomain, String fromEmail, String fromName) {
+    public MailgunSender(String mailgunApiKey, String mailgunDomain, String fromEmail) {
         this.mailgunApiKey = mailgunApiKey;
         this.mailgunDomain = mailgunDomain;
         this.fromEmail = fromEmail;
-        this.fromName = fromName;
     }
 
     @Override
@@ -33,7 +31,7 @@ public class MailgunSender implements Sender {
             try {
                 Unirest.post("https://api.mailgun.net/v3/" + mailgunDomain + "/messages")
                         .basicAuth("api", mailgunApiKey)
-                        .queryString("from", fromName + "<" + fromEmail + ">")
+                        .queryString("from",  "TG-Monitor<" + fromEmail + ">")
                         .queryString("to", e)
                         .queryString("subject", subject)
                         .queryString(format, text)
