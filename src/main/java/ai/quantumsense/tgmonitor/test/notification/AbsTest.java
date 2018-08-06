@@ -29,7 +29,7 @@ public abstract class AbsTest {
         String apiKey = System.getenv("MAILGUN_API_KEY");
         if (apiKey == null)
             throw new RuntimeException("Must set MAILGUN_API_KEY environment variable");
-        sender = new MailgunSender(apiKey, "quantumsense.ai", "tg-monitor@quantumsens.ai", "TG-Monitor");
+        sender = new MailgunSender(apiKey, "quantumsense.ai", "tg-monitor@quantumsens.ai");
     }
     public static Formatter formatter = new FormatterImpl();
 }
